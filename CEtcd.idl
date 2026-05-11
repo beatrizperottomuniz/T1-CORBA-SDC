@@ -1,0 +1,34 @@
+//
+// Interface CEtcd
+//
+//   Sistemas Distribuídos e Concorrentes
+//   Escola Politécnica - PUCPR
+//   Grupo: <coloque aqui os nomes dos membros do grupo>
+//
+// Compilar com:
+//
+//     tao_idl -Gstl CEtcd.idl
+//
+// para gerar stub e skeleton.
+//
+
+// Exceção lançada quando a chave não existe na tabela
+exception InvalidKey {};
+
+interface CEtcd {
+
+    // Atributo somente leitura: identificador do objeto
+    readonly attribute string id;
+
+    // Insere ou atualiza uma chave/valor na tabela.
+    // Retorna true se a chave é nova, false se já existia (e foi atualizada).
+    boolean put(in string key, in string val);
+
+    // Retorna o valor associado à chave 'key'.
+    // Lança InvalidKey se a chave não existir.
+    string get(in string key) raises (InvalidKey);
+
+    // Remove a chave e seu valor da tabela.
+    // Lança InvalidKey se a chave não existir.
+    void del(in string key) raises (InvalidKey);
+};
